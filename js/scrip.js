@@ -1,26 +1,76 @@
+const container = document.querySelector(".container");
 
-const boton = document.getElementById("btnColor")
+const btnCambiar = document.getElementById("btnColor");
 
-boton.addEventListener("click", cambiarColores);
+const botonesCantidad =
+  document.querySelectorAll("[data-cantidad]");
+
+let cantidadActual = 6;
+
+
+
+crearBoxes(cantidadActual);
+
+
+
+botonesCantidad.forEach(boton => {
+
+  boton.addEventListener("click", () => {
+
+    cantidadActual =
+      Number(boton.dataset.cantidad);
+
+    crearBoxes(cantidadActual);
+
+  });
+
+});
+
+
+
+btnCambiar.addEventListener("click", cambiarColores);
+
+
+
+function crearBoxes(cantidad) {
+
+  container.innerHTML = "";
+
+  for (let i = 0; i < cantidad; i++) {
+
+    const box = document.createElement("div");
+
+    box.classList.add("box");
+
+    container.appendChild(box);
+
+  }
+
+  cambiarColores();
+
+}
+
+
 
 function cambiarColores() {
 
-const boxes = document.querySelectorAll(".box");
+  const boxes =
+    document.querySelectorAll(".box");
 
-const inicio = Math.floor(Math.random() * 360);
+  const inicio =
+    Math.floor(Math.random() * 360);
 
+  const separacion =
+    360 / boxes.length;
 
+  boxes.forEach((box, index) => {
 
-boxes.forEach((box, index) => {
-    const numBox = boxes.length
-    const hue = (inicio + index * (Math.floor(360/numBox))) % 360;
-    const sat = Math.floor(Math.random()*100)
-    console.log((Math.floor(360/numBox)) % 360)
-    const lum = Math.floor(Math.random()*100)
+    const hue =
+      (inicio + separacion * index) % 360;
+
     box.style.backgroundColor =
-    `hsl(${hue}, ${sat}%, ${lum}%)`;
+      `hsl(${hue}, 80%, 50%)`;
 
-    
-});
+  });
 
 }
