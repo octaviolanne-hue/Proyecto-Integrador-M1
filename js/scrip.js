@@ -97,11 +97,11 @@ function crearBoxes(cantidad) {
 
 });
 
+box.appendChild(lock);
+
 item.appendChild(box);
 
 item.appendChild(code);
-
-item.appendChild(lock);
 
 container.appendChild(item);
   }
@@ -113,14 +113,11 @@ container.appendChild(item);
 function copiarCodigo(event) {
 
   const texto =
-    event.target.textContent;
-
+  event.currentTarget.innerText;
 
   navigator.clipboard.writeText(texto);
 
-
   mensajeCopiado.classList.add("mostrar");
-
 
   setTimeout(() => {
 
@@ -157,52 +154,64 @@ function cambiarColores() {
     const hue =
       (inicio + separacion * index) % 360;
 
-
-    let color = "";
-
-    let codigo = "";
+let color = "";
 
 
 
-    if (modoActual === "hsl") {
+if (modoActual === "hsl") {
 
-      color =
-        `hsl(${hue}, 80%, 50%)`;
-
-      codigo =
-      `hsl(${hue}, 80%, 50%)`;
-
-    }
-
-    else {
-
-      const r =
-        Math.floor(Math.random() * 256);
-
-      const g =
-        Math.floor(Math.random() * 256);
-
-      const b =
-        Math.floor(Math.random() * 256);
-
-      const a =
-        Math.random().toFixed(2);
+  color =
+    `hsl(${hue}, 80%, 50%)`;
 
 
-      color =
-        `rgba(${r}, ${g}, ${b}, ${a})`;
+  code.innerHTML = `
+  
+    <span class="code-type">
+      HSL
+    </span>
 
+    <span class="code-value">
+      ${hue}, 80%, 50%
+    </span>
 
-      codigo =
-      `rgba(${r}, ${g}, ${b}, ${a})`;
+  `;
 
 }
 
+else {
 
+  const r =
+    Math.floor(Math.random() * 256);
+
+  const g =
+    Math.floor(Math.random() * 256);
+
+  const b =
+    Math.floor(Math.random() * 256);
+
+  const a =
+    Math.random().toFixed(2);
+
+
+  color =
+    `rgba(${r}, ${g}, ${b}, ${a})`;
+
+
+  code.innerHTML = `
+
+    <span class="code-type">
+      RGBA
+    </span>
+
+    <span class="code-value">
+      ${r}, ${g}, ${b}, ${a}
+    </span>
+
+  `;
+
+}
 
 box.style.backgroundColor = color;
-
-code.textContent = codigo;
 
   });
 
