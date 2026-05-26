@@ -73,12 +73,37 @@ function crearBoxes(cantidad) {
 
     code.addEventListener("click", copiarCodigo);
 
-    item.appendChild(box);
+    const lock = document.createElement("button");
 
-    item.appendChild(code);
+    lock.classList.add("lock-btn");
 
-    container.appendChild(item);
+    lock.textContent = "🔓";
 
+    lock.addEventListener("click", () => {
+
+      item.classList.toggle("locked");
+
+      if (item.classList.contains("locked")) {
+
+        lock.textContent = "🔒";
+
+      }
+
+      else {
+
+        lock.textContent = "🔓";
+
+      }
+
+});
+
+item.appendChild(box);
+
+item.appendChild(code);
+
+item.appendChild(lock);
+
+container.appendChild(item);
   }
 
   cambiarColores();
@@ -117,6 +142,10 @@ function cambiarColores() {
     360 / items.length;
 
   items.forEach((item, index) => {
+
+    if (item.classList.contains("locked")) {
+    return;
+    }
 
     const box =
       item.querySelector(".box");
